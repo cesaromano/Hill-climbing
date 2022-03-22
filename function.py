@@ -35,5 +35,5 @@ def plotFunct(i, f, p):
 
 	return plot
 
-plot_1 = plotFunct(0.0, 1.0, 0.001)
-print(plot_1)
+#plot_1 = plotFunct(0.0, 1.0, 0.001)
+#print(plot_1)
