@@ -3,7 +3,7 @@ import math
 import numpy as np
 
 class Function:
-	"""Test and plot the function"""
+	"""Test and plot the function and especific points"""
 
 	def __init__(self, i=0.0, f=1.0, p=0.001):
 		"""
@@ -24,7 +24,7 @@ class Function:
 		return g
 
 	def funct(self):
-		"""Plot the function"""
+		"""Return 'ax', a subplot in a figure"""
 
 		values = []
 		points = []
@@ -40,12 +40,10 @@ class Function:
 		ax.plot(points, values)
 		ax.axis([0, 1.1, 0, 1.1])
 
-		#plot = plt.show()
-
 		return ax
 
 	def addPointPlot(self, px, py):
-		"""Plot an especific point in the function"""
+		"""Return 'ax', a subplot with the function and a especific point"""
 		
 		ax = Function.funct(self)
 		ax.scatter(px, py, s=50)		
