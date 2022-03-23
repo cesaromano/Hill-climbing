@@ -1,5 +1,4 @@
-import function
+from function import Function
 
-function.plotFunct(0.0, 1.0, 0.001)
-
-#ssh key added
+test_1 = Function(0.0, 1.0, 0.001)
+test_1.plotFunc()
