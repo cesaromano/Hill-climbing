@@ -4,6 +4,7 @@ from hillClimbing import HillClimbing
 
 test_1 = Function()
 test_2 = HillClimbing()
-print(test_2.optimize())
-#test_1.addPointPlot()
+x, y, t = test_2.optimize()
+print(x, y, t)
+test_1.addPointPlot(x, y)
 plt.show()
