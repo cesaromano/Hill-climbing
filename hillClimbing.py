@@ -6,7 +6,7 @@ import random
 class HillClimbing:
     """Hill climbing optimization method"""
 
-    def __init__(self, max_it=50, g=1.0):
+    def __init__(self, max_it=2, g=1.0):
         """
         max_it: maximum iteration number
         g: optimal point
@@ -19,8 +19,8 @@ class HillClimbing:
         """Hill climbing optimization algorithm"""
 
         t = 1
-        #x = round(random.uniform(0.0, 1.0), 2)
-        x = 0.3
+        x = round(random.uniform(0.0, 1.0), 2)
+        #x = 0.3
         r = x
 
         func = Function()
@@ -30,7 +30,7 @@ class HillClimbing:
 
         while (t<self.max_it and evaluate!=self.g):
 
-            xi = x + np.random.normal(0, 0.01, 1)
+            xi = x + np.random.normal(0, 0.05, 1)
             evaluate_i = func.evalFunc(xi)
             evaluate = func.evalFunc(x)
 
@@ -48,4 +48,5 @@ class HillClimbing:
         y = func.evalFunc(x)
         #y = y[0]
 
-        return x, y, t, r, le
+        #return x, y, t, r, le
+        return x, y
