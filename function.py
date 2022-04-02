@@ -24,7 +24,7 @@ class Function:
 		return g
 
 	def funct(self):
-		"""Return 'ax', a subplot in a figure"""
+		"""Return 'ax', a subplot in a figure with the function figure"""
 
 		values = []
 		points = []
@@ -43,7 +43,7 @@ class Function:
 		return ax
 
 	def addPointPlot(self, px, py):
-		"""Return 'ax', a subplot with the function and a especific point"""
+		"""Return 'ax', a subplot with the function and a especific points"""
 		
 		ax = Function.funct(self)
 		ax.scatter(px, py, s=50)		
