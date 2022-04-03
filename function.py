@@ -24,7 +24,7 @@ class Function:
 		return g
 
 	def funct(self):
-		"""Return 'ax', a subplot in a figure with the function figure"""
+		"""Return 'ax', a the subplot function in the figure"""
 
 		values = []
 		points = []
