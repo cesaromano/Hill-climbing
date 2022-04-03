@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import math
 import numpy as np
+import random
 
 class Function:
 	"""Test and plot the function and especific points"""
@@ -49,3 +50,26 @@ class Function:
 		ax.scatter(px, py, s=50)		
 
 		return ax
+
+	def optimizate(self, x, max_it ):
+		"""Hill climbing optimization algorithm"""
+
+		t = 1
+		func = Function()
+		evaluate = func.evalFunc(x)
+
+		while (t<self.max_it and evaluate != self.g):
+			
+			xi = x + np.random.normal(0, 0.2, 1)
+			evaluate_i = func.evalFunc(xi)
+			evaluate = func.evalFunc(x)
+
+			if evaluate_i > evaluate:
+				x = xi
+
+			t += 1
+
+		x = x
+		y = func.evalFunc(x)
+
+		return x, y
