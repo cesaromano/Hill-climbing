@@ -1,55 +1,88 @@
+import matplotlib.pyplot as plt
 import math
 import numpy as np
-from function import Function
-import random
 
-class HillClimbing:
-    """Hill climbing optimization class"""
+class Function:
+	"""Test and plot the function and especific points"""
 
-    def __init__(self, max_it=2, g=1.0):
-        """
-        max_it: maximum iteration number
-        g: optimal point
-        """
+	def __init__(self, i=0.0, f=1.0, p=0.001):
+		"""
+		x: value to be evaluated
+		i: range lower limit
+		f: range upper limit
+		p: range step 
+		"""
 
-        self.max_it = max_it
-        self.g = g
+		self.i = i
+		self.f = f
+		self.p = p
 
-    def optimize(self):
-        """Hill climbing optimization algorithm"""
+	def evalFunc(self, x):
+		"""Evaluates the function"""
+		self.x = x
+		g = (2**(-2*((x-0.1)/0.9)**2))*(math.sin(5*math.pi*x))**6
+		return g
 
-        t = 1
-        #Random number to be evaluated
-        x = round(random.uniform(0.0, 1.0), 2)
-        #Fixed number to be evaluated
-        #x = 0.3
+	def funct(self):
+		"""Return 'ax', a the subplot function in the figure"""
 
-        #Control variable to see the random number given
-        r = x
+		values = []
+		points = []
 
-        #Instantiate a Function object, in order to evaluate a given nnumber
-        func = Function()
-        evaluate = func.evalFunc(x)
+		for each in np.arange(self.i, self.f, self.p):
+			test = Function.evalFunc(self, each)
+			values.append(test)
 
-        #Control variable to see the variable climbing history
-        le = []
+		for each in np.arange(self.i, self.f, self.p):
+			points.append(each)
 
-        while (t<self.max_it and evaluate!=self.g):
+		fig, ax = plt.subplots()
+		ax.plot(points, values)
+		ax.axis([0, 1.1, 0, 1.1])
 
-            xi = x + np.random.normal(0, 0.05, 1)
-            evaluate_i = func.evalFunc(xi)
-            evaluate = func.evalFunc(x)
+		return ax
 
-            if evaluate_i > evaluate:
-                x = xi
-            
-            t += 1
-            le.append(x)
-        
-        x = x
-        y = func.evalFunc(x)
+	def addPointPlot(self, px, py):
+		"""Return 'ax', a subplot with the function and a especific points"""
+		
+		ax = Function.funct(self)
+		ax.scatter(px, py, s=50)		
 
-        #Return coordinates and control variables
-        #return x, y, t, r, le
-        #Return coordinates only
-        return x, y
+		return ax
+
+	def optimizate(self, x, max_it ):
+		"""Hill climbing optimization algorithm"""
+
+		t = 1
+
+		evaluate = Function.evalFunc(x)
+
+		while (t<self.max_it and evaluate != self.g):
+			
+			xi = x + np.random.normal(0, 0.2, 1)
+			evaluate_i = Function.evalFunc(xi)
+			evaluate = Function.evalFunc(x)
+
+			if evaluate_i > evaluate:
+				x = xi
+
+			t += 1
+
+		x = x
+		y = Function.evalFunc(x)
+
+		return x, y
+
+	def hillClimbingS(self):
+
+		coordinates = [Function.optimize() for value in range(1, 11)]
+
+		x = [coordinates[value][0] for value in range(0, len(coordinates))]
+		x = np.asfarray(x)
+
+		y = [coordinates[value][1] for value in range(0, len(coordinates))]
+		y = np.asfarray(y)
+
+		plot = Function.addPointPlot(x, y)
+
+		return plot
