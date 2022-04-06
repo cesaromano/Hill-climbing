@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 
-class hillClimbing:
+class HillClimbing:
 	"""Test and plot the function and especific points"""
 
 	def __init__(self, i=0.0, f=1.0, p=0.001):
@@ -30,7 +30,7 @@ class hillClimbing:
 		points = []
 
 		for each in np.arange(self.i, self.f, self.p):
-			test = hillClimbing.evalFunc(self, each)
+			test = HillClimbing.evalFunc(self, each)
 			values.append(test)
 
 		for each in np.arange(self.i, self.f, self.p):
@@ -45,23 +45,23 @@ class hillClimbing:
 	def addPointPlot(self, px, py):
 		"""Return 'ax', a subplot with the function and a especific points"""
 		
-		ax = hillClimbing.funct(self)
+		ax = HillClimbing.funct(self)
 		ax.scatter(px, py, s=50)		
 
 		return ax
 
-	def optimizate(self, x, max_it ):
+	def optimizate(self, x, max_it=2, g=1.0):
 		"""Hill climbing optimization algorithm"""
 
 		t = 1
 
-		evaluate = hillClimbing.evalFunc(x)
+		evaluate = HillClimbing.evalFunc(self, x)
 
-		while (t<self.max_it and evaluate != self.g):
+		while (t<max_it and evaluate != g):
 			
 			xi = x + np.random.normal(0, 0.2, 1)
-			evaluate_i = hillClimbing.evalFunc(xi)
-			evaluate = hillClimbing.evalFunc(x)
+			evaluate_i = HillClimbing.evalFunc(self, xi)
+			evaluate = HillClimbing.evalFunc(self, x)
 
 			if evaluate_i > evaluate:
 				x = xi
@@ -69,13 +69,13 @@ class hillClimbing:
 			t += 1
 
 		x = x
-		y = hillClimbing.evalFunc(x)
+		y = HillClimbing.evalFunc(self, x)
 
 		return x, y
 
-	def hillClimbingS(self):
+	def hillClimbingS(self, x):
 
-		coordinates = [hillClimbing.optimize() for value in range(1, 11)]
+		coordinates = [HillClimbing.optimizate(self, x) for value in range(1, 11)]
 
 		x = [coordinates[value][0] for value in range(0, len(coordinates))]
 		x = np.asfarray(x)
@@ -83,6 +83,6 @@ class hillClimbing:
 		y = [coordinates[value][1] for value in range(0, len(coordinates))]
 		y = np.asfarray(y)
 
-		plot = hillClimbing.addPointPlot(x, y)
+		plot = HillClimbing.addPointPlot(self, x, y)
 
 		return plot
