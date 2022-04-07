@@ -3,19 +3,22 @@ import math
 import numpy as np
 
 class HillClimbing:
-	"""Test and plot the function and especific points"""
+	"""Hill climbing optimization class"""
 
-	def __init__(self, i=0.0, f=1.0, p=0.001):
+	def __init__(self, p, max_it, g=1.0, i=0.0, f=1.0):
 		"""
 		x: value to be evaluated
 		i: range lower limit
 		f: range upper limit
 		p: range step 
+		max_it: iteration number
 		"""
 
 		self.i = i
 		self.f = f
 		self.p = p
+		self.max_it = max_it
+		self.g = g
 
 	def evalFunc(self, x):
 		"""Evaluates the function"""
@@ -50,14 +53,18 @@ class HillClimbing:
 
 		return ax
 
-	def optimizate(self, x, max_it=2, g=1.0):
+	def optimizate(self, x):
 		"""Hill climbing optimization algorithm"""
 
 		t = 1
 
+		#Instantiate a Function object, in order to evaluate a given nnumber
 		evaluate = HillClimbing.evalFunc(self, x)
 
-		while (t<max_it and evaluate != g):
+		#Control variable to see the variable climbing history
+        #le = []
+
+		while (t<self.max_it and evaluate != self.g):
 			
 			xi = x + np.random.normal(0, 0.2, 1)
 			evaluate_i = HillClimbing.evalFunc(self, xi)
@@ -67,21 +74,36 @@ class HillClimbing:
 				x = xi
 
 			t += 1
+			#le.append(x)
 
 		x = x
 		y = HillClimbing.evalFunc(self, x)
 
+		#Return coordinates and control variables
 		return x, y
 
 	def hillClimbingS(self, x):
+		"""
+		Controls the "Hill Climbing simple" algoritm using Function
+    	and HillClimbing classes
+		"""
 
+		#List comprehension that contains multiple multiple optimizated values 
 		coordinates = [HillClimbing.optimizate(self, x) for value in range(1, 11)]
 
+		#List comprehension that contain the 'x' coordinates
 		x = [coordinates[value][0] for value in range(0, len(coordinates))]
 		x = np.asfarray(x)
 
+		#List comprehension that contain the 'y' coordinates
 		y = [coordinates[value][1] for value in range(0, len(coordinates))]
 		y = np.asfarray(y)
+
+		#Contain one optimizated value
+		#x, y, t, r, le = test_2.optimize()
+
+		#Show coordinates and control variables	
+		#print(x, y, t, r, le)	
 
 		plot = HillClimbing.addPointPlot(self, x, y)
 
