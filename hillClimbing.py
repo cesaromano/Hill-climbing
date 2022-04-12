@@ -108,3 +108,30 @@ class HillClimbing:
 		plot = HillClimbing.addPointPlot(self, x, y)
 
 		return plot
+
+	def hillClimbingI(self, x, n_start):
+		"""
+		Controls the "Iterated Hill Climbing" algoritm using Function
+    	and HillClimbing classes
+		"""
+
+		best = 0.0
+		t = 1
+
+		while (t<n_start and best != self.g):
+			
+			#evaluate = HillClimbing.evalFunc(self, x) 
+
+			x = HillClimbing.optimizate(self, x)
+			x = x[0]
+			t += 1		
+
+			if x > best:
+				best = x
+
+		y = HillClimbing.evalFunc(self, x)
+		print(x, y)
+
+		plot = HillClimbing.addPointPlot(self, x, y)
+
+		return plot
