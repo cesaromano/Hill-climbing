@@ -149,15 +149,13 @@ class HillClimbing:
 		#Instantiate a Function object, in order to evaluate a given nnumber
 		evaluate = HillClimbing.evalFunc(self, x)
 
-		while (t<self.max_it and x != self.g):
-			
-			#evaluate = HillClimbing.evalFunc(self, x) 
+		while (t<self.max_it and x != self.g): 
 
 			xi = x + np.random.normal(0, 0.2, 1)
 			evaluate_i = HillClimbing.evalFunc(self, xi)
 			evaluate = HillClimbing.evalFunc(self, x)
 			
-			if round(random.uniform(0.0, 1.0), 2) > (1/(1+math.exp((evaluate-evaluate_i)/T))):
+			if round(random.uniform(0.0, 1.0), 2) < (1/(1+math.exp((evaluate-evaluate_i)/T))):
 				x = xi
 				
 			t += 1

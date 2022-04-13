@@ -16,6 +16,6 @@ test_1 = HillClimbing(0.001, 5, 11)
 #test_1.hillClimbingI(x, 2)
 
 #implementing hillClimbingP algoritm to object
-test_1.hillClimbingP(x, 2.0)
+test_1.hillClimbingP(x, 0.5)
 
 plt.show()
