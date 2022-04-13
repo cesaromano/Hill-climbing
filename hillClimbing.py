@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
 import math
 import numpy as np
+import random
 
 class HillClimbing:
 	"""Hill climbing optimization class"""
 
-	def __init__(self, p, max_it, g=1.0, i=0.0, f=1.0):
+	def __init__(self, p, max_it, s, g=1.0, i=0.0, f=1.0):
 		"""
 		x: value to be evaluated
 		i: range lower limit
@@ -19,6 +20,7 @@ class HillClimbing:
 		self.p = p
 		self.max_it = max_it
 		self.g = g
+		self.s = s
 
 	def evalFunc(self, x):
 		"""Evaluates the function"""
@@ -89,7 +91,7 @@ class HillClimbing:
 		"""
 
 		#List comprehension that contains multiple multiple optimizated values 
-		coordinates = [HillClimbing.optimizate(self, x) for value in range(1, 11)]
+		coordinates = [HillClimbing.optimizate(self, x) for value in range(1, self.s)]
 
 		#List comprehension that contain the 'x' coordinates
 		x = [coordinates[value][0] for value in range(0, len(coordinates))]
@@ -128,6 +130,37 @@ class HillClimbing:
 
 			if x > best:
 				best = x
+
+		y = HillClimbing.evalFunc(self, x)
+		print(x, y)
+
+		plot = HillClimbing.addPointPlot(self, x, y)
+
+		return plot
+
+	def hillClimbingP(self, x, T):
+		"""
+		Controls the "Stochastic Hill Climbing" algoritm using Function
+    	and HillClimbing classes
+		"""
+
+		t = 1
+
+		#Instantiate a Function object, in order to evaluate a given nnumber
+		evaluate = HillClimbing.evalFunc(self, x)
+
+		while (t<self.max_it and x != self.g):
+			
+			#evaluate = HillClimbing.evalFunc(self, x) 
+
+			xi = x + np.random.normal(0, 0.2, 1)
+			evaluate_i = HillClimbing.evalFunc(self, xi)
+			evaluate = HillClimbing.evalFunc(self, x)
+			
+			if round(random.uniform(0.0, 1.0), 2) > (1/(1+math.exp((evaluate-evaluate_i)/T))):
+				x = xi
+				
+			t += 1
 
 		y = HillClimbing.evalFunc(self, x)
 		print(x, y)
