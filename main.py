@@ -1,4 +1,5 @@
 from hillClimbing import HillClimbing
+from simulatedAnnealing import SimulatedAnnealing
 import random
 import matplotlib.pyplot as plt
 
@@ -8,7 +9,7 @@ x = round(random.uniform(0.0, 1.0), 2)
 #HillClimbing class called, first parameter: perturbation pass,
 #second parameter: max iterations number
 #third parameter: random samples number
-test_1 = HillClimbing(0.001, 5, 11)
+#test_1 = HillClimbing(0.001, 5, 11)
 #implementing hillClimbingS algoritm to object
 #test_1.hillClimbingS(x)
 
@@ -16,6 +17,12 @@ test_1 = HillClimbing(0.001, 5, 11)
 #test_1.hillClimbingI(x, 2)
 
 #implementing hillClimbingP algoritm to object
-test_1.hillClimbingP(x, 0.5)
+#test_1.hillClimbingP(x, 0.5)
+
+#implementing hsimulatingAnneing algoritm to object
+test2 = SimulatedAnnealing(5)
+test2.simAnnealing(100, x, 0.8)
+
+
 
 plt.show()

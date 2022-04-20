@@ -13,6 +13,7 @@ class HillClimbing:
 		f: range upper limit
 		p: range step 
 		max_it: iteration number
+		s: hillClimbingS number of samples
 		"""
 
 		self.i = i
