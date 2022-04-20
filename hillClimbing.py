@@ -6,7 +6,7 @@ import random
 class HillClimbing:
 	"""Hill climbing optimization class"""
 
-	def __init__(self, p, max_it, s, g=1.0, i=0.0, f=1.0):
+	def __init__(self, max_it, s, g=1.0, i=0.0, f=1.0, p=0.001):
 		"""
 		x: value to be evaluated
 		i: range lower limit

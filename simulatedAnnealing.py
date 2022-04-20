@@ -9,13 +9,17 @@ class SimulatedAnnealing(HillClimbing):
 	"""Simulated Annealing optimization class"""
 
 	
-	def __init__(self, max_it):
-		#"""
-		#Atributes initialized from the parent class
-		#"""
-		super().__init__(max_it)
+	def __init__(self, max_it, g=0.1, i=0.0, f=1.0, p=0.001):
+		"""
+		Atributes initialized from the parent class
+		"""
 
-		#self.B = B
+		self.max_it = max_it
+		self.g = g
+		self.i = i
+		self.f = f
+		self.p = p
+
 
 	def simAnnealing(self, T, x, B):
 		"""
@@ -23,13 +27,17 @@ class SimulatedAnnealing(HillClimbing):
     	HillClimbing classes
 		"""
 
-		evaluate = super().evalFunc(self, x)
+		evaluate = super().evalFunc(x)
 
 		t = 1
+		xil = []
+		xa = []
 
-		while (t<self.max_it and evaluate != self.g):
-			xi = x + np.random.normal(0, 0.2, 1)
-			evaluate_i = super().evalFunc(self, xi)
+		while (t<self.max_it and x != self.g):
+			xi = x + np.random.normal(0.0, 0.02, 1)
+			#xil.append(xi)
+			evaluate_i = super().evalFunc(xi)
+			evaluate = super().evalFunc(x)
 
 			if evaluate_i > evaluate:
 				x = xi
@@ -38,11 +46,13 @@ class SimulatedAnnealing(HillClimbing):
 			
 			T = B * T
 
+			#xa.append(x)
+
 			t += 1
 
-		y = super().evalFunc(self, x)
-		print(x, y)
+		y = super().evalFunc(x)
+		print(f"x:{x}, y:{y} \nTemperature:{T}\nIterations: {t}\nPerturbations: {xil}\nx acepted: {xa}")
 
-		plot = super().addPointPlot(self, x, y)
+		plot = super().addPointPlot(x, y)
 
 		return plot
